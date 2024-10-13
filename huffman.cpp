@@ -34,7 +34,7 @@ void generarCodigos(Nodo* raiz, string codigo, unordered_map<char, string>& codi
     generarCodigos(raiz->derecha, codigo + "1", codigos);
 }
 
-// Función para construir el árbol de Huffman y mostrar las raíces y ramas
+// Función para construir el árbol de Huffman
 Nodo* construirArbolHuffman(const unordered_map<char, int>& frecuencias) {
     priority_queue<Nodo*, vector<Nodo*>, Comparador> pq;
     for (auto& par : frecuencias) {
@@ -47,8 +47,6 @@ Nodo* construirArbolHuffman(const unordered_map<char, int>& frecuencias) {
         nuevoNodo->izquierda = izquierda;
         nuevoNodo->derecha = derecha;
         pq.push(nuevoNodo);
-
-        cout << "Raiz tomada: " << nuevoNodo->frecuencia << " (izquierda: " << izquierda->frecuencia << ", derecha: " << derecha->frecuencia << ")\n";
     }
     return pq.top();
 }
@@ -107,11 +105,20 @@ int main() {
 
     unordered_map<char, string> codigos = huffmanCanonico(palabra);
 
-    // Mostrar los códigos
-    cout << "Codigos de Huffman canonicos:\n";
+    // Mostrar los códigos de manera organizada
+    cout << "\nCodigos de Huffman canonicos:\n";
+    cout << "Caracter | Codigo\n";
+    cout << "-----------------\n";
     for (auto& par : codigos) {
-        cout << par.first << ": " << par.second << "\n";
+        cout << "   " << par.first << "    | " << par.second << "\n";
     }
+
+    // Mostrar los códigos concatenados
+    cout << "\nCodigos concatenados:\n";
+    for (char c : palabra) {
+        cout << codigos[c] << " " ;
+    }
+    cout << "\n";
 
     return 0;
 }
